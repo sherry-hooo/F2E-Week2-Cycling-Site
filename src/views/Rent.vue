@@ -28,6 +28,7 @@
 import L from "leaflet";
 import Search_Bar from "@/components/SearchBar.vue";
 import getApi from "@/services/getApi.js";
+import accessToken from "@/assets/data/mapboxToken.js";
 
 export default {
   name: "Rent",
@@ -326,14 +327,6 @@ export default {
 
         // console.log(obj.markers);
         console.log(obj.markers.length == 0);
-
-        // if (obj.markers.length !== 0) {
-        //   // 如果臨近站點已經取過 api
-        //   console.log("有取過api");
-        // } else {
-        //   // 如果鄰近站點還沒有取過 api
-        //   console.log("還沒娶過api");
-        // }
       }
 
       function error(e) {
@@ -348,7 +341,8 @@ export default {
     // 取得 openmap 圖資
     getMap(lat, lon, zoom = 15) {
       console.log("getMap"); // check only
-
+      let myToken = accessToken.accessToken;
+      console.log(myToken);
       // 綁定現在位置
       this.openStreetMap = L.map("map", {
         center: [lat, lon],
@@ -364,8 +358,7 @@ export default {
           id: "mapbox/streets-v11",
           tileSize: 512,
           zoomOffset: -1,
-          accessToken:
-            "pk.eyJ1Ijoic2hlcnJ5aG8iLCJhIjoiY2t3Mzc4djhxZTFyZDJvczdmeXFpdDY1diJ9.wpSDjKWWn5Nm_f5Y1oeGaA",
+          accessToken: myToken,
         }
       ).addTo(this.openStreetMap);
       console.log(this.openStreetMap);
@@ -394,7 +387,6 @@ export default {
     },
   },
   mounted() {
-    // this.getCurrentPosition(this);
     this.getMap(22.9996426, 120.2106908);
   },
 };
@@ -476,7 +468,7 @@ main {
   border: 5px solid white;
   z-index: 1;
   @include breakpoint.tablet {
-    border-radius: 90px;
+    border-radius: 80px;
     border: 10px solid white;
   }
 }
