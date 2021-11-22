@@ -1,4 +1,6 @@
 module.exports = {
+  publicPath:
+    process.env.NODE_ENV === "production" ? "/F2E-Week2-Cycling-Site/" : "/",
   css: {
     loaderOptions: {
       // pass options to sass-loader
