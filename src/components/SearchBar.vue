@@ -65,7 +65,7 @@ import getApi from "@/services/getApi.js";
 import citiesList from "@/assets/data/citiesList.json";
 
 export default {
-  props: [],
+  props: ["allRouteData"],
   data() {
     return {
       chosedCity: "請選擇",
@@ -81,10 +81,15 @@ export default {
     },
     stationsName() {
       let stationsList = ["---"];
-      this.stationsList.map((station) =>
-        stationsList.push(station.StationName.Zh_tw)
-      );
-      return stationsList;
+      if (this.$route.path === "/rent") {
+        this.stationsList.map((station) =>
+          stationsList.push(station.StationName.Zh_tw)
+        );
+        return stationsList;
+      } else {
+        stationsList = [];
+        return stationsList;
+      }
     },
     dropBoxTitle() {
       if (this.$route.path === "/rent") {
@@ -104,6 +109,11 @@ export default {
     getCityStationApi(city) {
       getApi.getCityStation(city).then((res) => (this.stationsList = res.data));
     },
+    getCyclingRoute(city, top, skip) {
+      return getApi
+        .getCyclingRoute(city, top, skip)
+        .then((res) => (this.stationList = res.data));
+    },
     getchosedCityLink() {
       let arr = this.citiesList.filter(
         (city) => city.cityName === this.chosedCity
@@ -122,7 +132,12 @@ export default {
     chosedCity() {
       let city = this.getchosedCityLink();
       this.chosedCityLink = city;
-      this.getCityStationApi(city);
+
+      if (this.$route.path === "/rent") {
+        this.getCityStationApi(city);
+      } else {
+        this.getCyclingRoute(city);
+      }
     },
   },
 };
@@ -187,7 +202,6 @@ export default {
     @include breakpoint.tablet {
       font-style: 1.5rem;
     }
-
   }
 }
 
