@@ -1,0 +1,99 @@
+// @use '../abstract/color.scss'; 會發生錯誤
+
+// 修改縮放 button 位置
+.leaflet-left {
+  left: 20px;
+}
+.leaflet-top {
+  top: 20px;
+}
+
+// 修改 popUp 視窗
+.myPopup {
+  opacity: 1;
+  transform: translate3d(132 px, 610 px, 0px);
+  bottom: -7px;
+  left: -100px;
+
+  .leaflet-popup-content-wrapper {
+    .leaflet-popup-content {
+      margin: 0;
+    }
+  }
+
+  .leaflet-popup-tip-container {
+    display: none;
+  }
+}
+.leaflet-popup-content .popUp {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 20px;
+  padding: 13px 20px;
+  p {
+    margin: 0;
+  }
+  .popUp_header {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    .stationName {
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .time {
+      color: grey;
+      font-size: 1rem;
+      text-align: center;
+      margin-top: 2px;
+    }
+  }
+  .popUp_body {
+    .location {
+      background: no-repeat;
+      margin-top: 0;
+      .stop_icon {
+        background-image: url("~@/assets/icon_small_green.svg");
+        display: inline-block;
+size: 20px;
+height: 30px;
+width: 30px;
+object-fit: cover;
+object-position: center;
+      }
+    }
+  }
+  .popUp_footer {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 45%;
+      border-radius: 4px;
+      padding: 4px;
+      .count {
+        height: 80%;
+        text-align: center;
+        font-size: 2.5em;
+      }
+    }
+    .rental {
+      background: green;
+    }
+    .parking {
+      background: #FFCB33;
+    }
+    .notAvailable {
+      background: red;
+    }
+  }
+}

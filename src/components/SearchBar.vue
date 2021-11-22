@@ -1,7 +1,9 @@
 <template>
   <div class="search_bar">
     <p class="title">站名搜尋</p>
-    <input type="text" placeholder="請輸入關鍵字站名" value="" />
+    <div v-if="$route.path === '/rent'" @click="zoomSearch" class="zoom_button">
+      -
+    </div>
     <div class="dropdown_box">
       <div class="dropdown">
         <p>縣市</p>
@@ -27,7 +29,7 @@
         </ul>
       </div>
       <div class="dropdown">
-        <p>站點</p>
+        <p>{{ dropBoxTitle }}</p>
         <button
           class="btn btn-secondary dropdown-toggle"
           type="button"
@@ -49,74 +51,114 @@
         </ul>
       </div>
     </div>
-    <button class="search_button">搜尋</button>
+    <button
+      class="search_button"
+      @click="submitSearch(this.chosedCityLink, this.chosedStation)"
+    >
+      搜尋
+    </button>
   </div>
 </template>
 
 <script>
-import getApi from '@/services/getApi.js'
-import citiesList from '@/assets/data/citiesList.json'
+import getApi from "@/services/getApi.js";
+import citiesList from "@/assets/data/citiesList.json";
 
 export default {
   props: [],
   data() {
     return {
-      chosedCity: '請選擇',
-      chosedStation: '請選擇站點',
+      chosedCity: "請選擇",
+      chosedStation: "請選擇站點",
       stationsList: [],
-    }
+      chosedCityLink: "",
+      ifZoom: false,
+    };
   },
   computed: {
     citiesList() {
-      return citiesList
+      return citiesList;
     },
     stationsName() {
-      let stationsList = ['---']
+      let stationsList = ["---"];
       this.stationsList.map((station) =>
-        stationsList.push(station.StationName.Zh_tw),
-      )
-      return stationsList
+        stationsList.push(station.StationName.Zh_tw)
+      );
+      return stationsList;
+    },
+    dropBoxTitle() {
+      if (this.$route.path === "/rent") {
+        return "站名";
+      } else {
+        return "路線";
+      }
     },
   },
   methods: {
     getChosedCity(event) {
-      this.chosedCity = event.target.innerHTML
+      this.chosedCity = event.target.innerHTML;
     },
     getChosedStation(event) {
-      this.chosedStation = event.target.innerHTML
+      this.chosedStation = event.target.innerHTML;
     },
     getCityStationApi(city) {
-      getApi.getCityStation(city).then((res) => (this.stationsList = res.data))
+      getApi.getCityStation(city).then((res) => (this.stationsList = res.data));
     },
     getchosedCityLink() {
       let arr = this.citiesList.filter(
-        (city) => city.cityName === this.chosedCity,
-      )
-      return arr[0].cityLink
+        (city) => city.cityName === this.chosedCity
+      );
+      return arr[0].cityLink;
+    },
+    submitSearch(chosedCityLink, chosedStation) {
+      this.$emit("submitSearch", { chosedCityLink, chosedStation });
+    },
+    zoomSearch() {
+      this.ifZoom = true;
+      this.$emit("zoomSearch", this.ifZoom);
     },
   },
   watch: {
     chosedCity() {
-      let city = this.getchosedCityLink()
-      this.getCityStationApi(city)
+      let city = this.getchosedCityLink();
+      this.chosedCityLink = city;
+      this.getCityStationApi(city);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
+@use "~@/assets/scss/abstract/_color.scss";
+
 .search_bar {
   background: white;
   border-radius: 5px;
-  padding: 2% 4%;
+  padding: 20px;
+  gap: 20px;
+  box-shadow: 1px 1px 3px #403e3ee8;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
-  box-shadow: 1px 1px 3px #403e3ee8;
+  position: relative;
   .title {
     font-size: 1.5rem;
     font-weight: 700;
+  }
+  .zoom_button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: 1px solid #494848;
+    width: 20px;
+    height: 20px;
+    line-height: 1;
+    color: #494848;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
   }
   input {
     border: 1px solid black;
@@ -128,16 +170,24 @@ export default {
   }
 
   .dropdown_box {
-    text-align: start;
-    display: flex;
     gap: 5px;
+    display: flex;
+    text-align: start;
   }
 
   .search_button {
     background: color.$color-yellow;
-    border-radius: 10px;
     width: 100%;
+    border-radius: 10px;
     padding: 10px;
+  }
+
+  p {
+    font-size: 1.1rem;
+    @include breakpoint.tablet {
+      font-style: 1.5rem;
+    }
+
   }
 }
 

@@ -1,0 +1,13 @@
+[
+  { "cityName": "臺中市", "cityLink": "Taichung" },
+  { "cityName": "新竹市", "cityLink": "Hsinchu" },
+  { "cityName": "苗栗縣", "cityLink": "MiaoliCounty" },
+  { "cityName": "新北市", "cityLink": "NewTaipei" },
+  { "cityName": "屏東縣", "cityLink": "PingtungCounty" },
+  { "cityName": "金門縣", "cityLink": "KinmenCounty" },
+  { "cityName": "桃園市", "cityLink": "Taoyuan" },
+  { "cityName": "臺北市", "cityLink": "Taipei" },
+  { "cityName": "高雄市", "cityLink": "Kaohsiung" },
+  { "cityName": "臺南市", "cityLink": "Tainan" },
+  { "cityName": "嘉義市", "cityLink": "Chiayi" }
+]

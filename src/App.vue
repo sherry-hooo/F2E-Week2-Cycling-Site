@@ -1,82 +1,44 @@
 <template>
-  <div id="nav">
-    <router-link to="/">租借UBike</router-link>
-    <router-link to="/routeMap">卡個路線</router-link>
-    <router-link to="/nearSite">附近景點美食</router-link>
-  </div>
+  <Nav_Bar v-if="$route.path != '/'"></Nav_Bar>
   <router-view />
-  <div id="map"></div>
 </template>
 
 <script>
-import L from 'leaflet'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap";
+import Nav_Bar from "@/components/Nav.vue";
 
 export default {
-  data() {
-    return {
-      openStreetMap: null,
-      marker: null,
-    }
-  },
-  mounted() {
-    // target location
-    this.openStreetMap = L.map('map', {
-      center: [25.0408578889, 121.567904444],
-      // 可以嘗試改變 zoom 的數值
-      // 筆者嘗試後覺得 18 的縮放比例是較適當的查詢範圍
-      zoom: 18,
-    })
-
-    L.tileLayer(
-      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
-      {
-        attribution:
-          'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken:
-          'pk.eyJ1Ijoic2hlcnJ5aG8iLCJhIjoiY2t3Mzc4djhxZTFyZDJvczdmeXFpdDY1diJ9.wpSDjKWWn5Nm_f5Y1oeGaA',
-      },
-    ).addTo(this.openStreetMap),
-      // 標記 icon
-      (this.marker = L.marker([25.0408578889, 121.567904444])
-        .addTo(this.openStreetMap)
-        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-        .openPopup())
-  },
-}
+  components: { Nav_Bar },
+};
 </script>
 
 <style lang="scss">
 // @import 'bootstrap/scss/bootstrap';
-// @use '@/assets/scss/abstract/color.scss';
+@use "@/assets/scss/abstract/_reset.scss";
 
-#map {
-  width: 100%;
-  height: 500px;
-}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background: #1B7C59;
-  height: 100vh;
+  background: #1b7c59;
+  min-height: 100vh;
+  padding: 0 2% 2%;
+  display: flex;
+  flex-direction: column;
 }
-#nav {
-  padding: 30px;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+main {
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background: white;
+  flex: 1;
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  @include breakpoint.tablet {
+    border-radius: 80px;
   }
 }
 </style>
