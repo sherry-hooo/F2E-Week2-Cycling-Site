@@ -463,7 +463,7 @@ main {
 
 #map {
   width: 100%;
-  height: 780px;
+  height: 600px;
   border-radius: 30px;
   border: 5px solid white;
   z-index: 1;
