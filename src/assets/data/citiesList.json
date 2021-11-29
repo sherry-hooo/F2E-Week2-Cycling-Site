@@ -1,13 +1,26 @@
 [
-  { "cityName": "臺中市", "cityLink": "Taichung" },
-  { "cityName": "新竹市", "cityLink": "Hsinchu" },
-  { "cityName": "苗栗縣", "cityLink": "MiaoliCounty" },
-  { "cityName": "新北市", "cityLink": "NewTaipei" },
-  { "cityName": "屏東縣", "cityLink": "PingtungCounty" },
-  { "cityName": "金門縣", "cityLink": "KinmenCounty" },
-  { "cityName": "桃園市", "cityLink": "Taoyuan" },
-  { "cityName": "臺北市", "cityLink": "Taipei" },
-  { "cityName": "高雄市", "cityLink": "Kaohsiung" },
-  { "cityName": "臺南市", "cityLink": "Tainan" },
-  { "cityName": "嘉義市", "cityLink": "Chiayi" }
+  { "cityName": "基隆市", "cityLink": "Keelung", "Ubike": false , "bikeRoute": true},
+  { "cityName": "臺北市", "cityLink": "Taipei" ,  "Ubike": true, "bikeRoute": true},
+  { "cityName": "新北市", "cityLink": "NewTaipei" ,  "Ubike": true, "bikeRoute": true},
+  { "cityName": "桃園市", "cityLink": "Taoyuan" ,  "Ubike": true, "bikeRoute": true},
+  { "cityName": "新竹市", "cityLink": "Hsinchu",  "Ubike": true , "bikeRoute": false},
+  { "cityName": "新竹縣", "cityLink": "HsinchuCounty", "Ubike": false , "bikeRoute": true},
+  { "cityName": "苗栗縣", "cityLink": "MiaoliCounty" ,  "Ubike": true, "bikeRoute": true},
+  { "cityName": "南投縣", "cityLink": "NantouCounty" ,  "Ubike": false, "bikeRoute": true},
+  { "cityName": "臺中市", "cityLink": "Taichung", "Ubike": true , "bikeRoute": true},
+  { "cityName": "彰化縣", "cityLink": "ChanghuaCounty", "Ubike": false , "bikeRoute": true},
+  { "cityName": "雲林縣", "cityLink": "YunlinCounty", "Ubike": false , "bikeRoute": true},
+  { "cityName": "嘉義市", "cityLink": "Chiayi" ,  "Ubike": true, "bikeRoute": true},
+  { "cityName": "嘉義縣", "cityLink": "ChiayiCounty" ,  "Ubike": false, "bikeRoute": true},
+  { "cityName": "臺南市", "cityLink": "Tainan" ,  "Ubike": true, "bikeRoute": true},
+  { "cityName": "高雄市", "cityLink": "Kaohsiung" ,  "Ubike": true, "bikeRoute": true},
+  { "cityName": "屏東縣", "cityLink": "PingtungCounty" ,  "Ubike": true, "bikeRoute": true},
+  { "cityName": "宜蘭縣", "cityLink": "YilanCounty" ,  "Ubike": false, "bikeRoute": true},
+  { "cityName": "臺東縣", "cityLink": "TaitungCounty" ,  "Ubike": false, "bikeRoute": true},
+  { "cityName": "花蓮縣", "cityLink": "HualienCounty" ,  "Ubike": false, "bikeRoute": true},
+  { "cityName": "宜蘭縣", "cityLink": "YilanCounty" ,  "Ubike": false, "bikeRoute": true},
+  { "cityName": "金門縣", "cityLink": "KinmenCounty" ,  "Ubike": true, "bikeRoute": true},
+  { "cityName": "澎湖縣", "cityLink": "PenghuCounty" ,  "Ubike": false, "bikeRoute": true}
 ]
+
+
