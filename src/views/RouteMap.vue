@@ -1,6 +1,9 @@
 <template>
   <main>
-    <Search_Bar v-on:submitSearch="submitSearch"></Search_Bar>
+    <Search_Bar
+      v-on:submitSearch="submitSearch"
+      :allRouteData="allRouteData"
+    ></Search_Bar>
     <figure>
       <Card_Group
         v-for="route in allRouteData"
@@ -32,7 +35,7 @@ export default {
     return {
       openStreetMap: null,
       chosedCityLink: "",
-      chosedCity: "",
+      chosedSubOption: "",
       allRouteData: [],
       top: 8,
       page: 1,
@@ -67,7 +70,7 @@ export default {
     async submitSearch(data) {
       this.page = 1;
       this.chosedCityLink = data.chosedCityLink;
-      this.chosedCity = data.chosedCity;
+      this.chosedSubOption = data.chosedSubOption;
       console.log(this.top, this.skipApi);
       this.getCyclingRoute(this.chosedCityLink, this.top, this.skipApi);
     },
@@ -186,6 +189,7 @@ main {
       button {
         flex: 1;
         max-width: 250px;
+        min-width: 120px;
       }
     }
   }
@@ -200,7 +204,7 @@ main {
     }
     .dropdown_box {
       order: 2;
-      flex: 0 1 50%;
+      flex: 1 1 50%;
       width: 50%;
       gap: 10px;
       justify-content: space-evenly;

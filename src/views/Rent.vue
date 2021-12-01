@@ -228,7 +228,10 @@ export default {
           {
             icon: this.yellowMarker,
           }
-        ).bindPopup(this.popUp(stop), { className: "myPopup" });
+        ).bindPopup(this.popUp(stop), {
+          className: "myPopup",
+          closeButton: false,
+        });
         markers.push(marker);
       });
       this.markers = markers;

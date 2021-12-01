@@ -53,5 +53,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use "@/assets/scss/base/pagination.scss";
+@use "@/assets/scss/base/bootstrap.scss";
 </style>

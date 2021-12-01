@@ -37,23 +37,23 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          {{ chosedStation }}
+          {{ chosedSubOption }}
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li
             class="dropdown-item"
-            v-for="station in stationsName"
-            :key="station"
-            @click="getChosedStation"
+            v-for="subOption in subOptions"
+            :key="subOption"
+            @click="getChosedSubOption"
           >
-            {{ station }}
+            {{ subOption }}
           </li>
         </ul>
       </div>
     </div>
     <button
       class="search_button"
-      @click="submitSearch(this.chosedCityLink, this.chosedStation)"
+      @click="submitSearch(this.chosedCityLink, this.chosedSubOption)"
     >
       搜尋
     </button>
@@ -69,26 +69,34 @@ export default {
   data() {
     return {
       chosedCity: "請選擇",
-      chosedStation: "請選擇站點",
+      chosedSubOption: "請選擇",
       stationsList: [],
-      chosedCityLink: "",
       ifZoom: false,
     };
   },
   computed: {
     citiesList() {
-      return citiesList;
+      if (this.$route.path === "/rent") {
+        let ubikeCities = citiesList.filter((city) => city.Ubike);
+        return ubikeCities;
+      } else {
+        let routeCities = citiesList.filter((city) => city.bikeRoute);
+        return routeCities;
+      }
     },
-    stationsName() {
-      let stationsList = ["---"];
+    subOptions() {
+      let optionsList = ["---"];
+      console.log("suboptionsssssss");
       if (this.$route.path === "/rent") {
         this.stationsList.map((station) =>
-          stationsList.push(station.StationName.Zh_tw)
+          optionsList.push(station.StationName.Zh_tw)
         );
-        return stationsList;
+        return optionsList;
+      } else if (this.$route.path === "/routeMap") {
+        this.stationsList.map((station) => optionsList.push(station.RouteName));
+        return optionsList;
       } else {
-        stationsList = [];
-        return stationsList;
+        return this.stationsList;
       }
     },
     dropBoxTitle() {
@@ -98,30 +106,30 @@ export default {
         return "路線";
       }
     },
-  },
-  methods: {
-    getChosedCity(event) {
-      this.chosedCity = event.target.innerHTML;
-    },
-    getChosedStation(event) {
-      this.chosedStation = event.target.innerHTML;
-    },
-    getCityStationApi(city) {
-      getApi.getCityStation(city).then((res) => (this.stationsList = res.data));
-    },
-    getCyclingRoute(city, top, skip) {
-      return getApi
-        .getCyclingRoute(city, top, skip)
-        .then((res) => (this.stationList = res.data));
-    },
-    getchosedCityLink() {
+    chosedCityLink() {
       let arr = this.citiesList.filter(
         (city) => city.cityName === this.chosedCity
       );
       return arr[0].cityLink;
     },
-    submitSearch(chosedCityLink, chosedStation) {
-      this.$emit("submitSearch", { chosedCityLink, chosedStation });
+  },
+  methods: {
+    getChosedCity(event) {
+      this.chosedCity = event.target.innerHTML;
+    },
+    getChosedSubOption(event) {
+      this.chosedSubOption = event.target.innerHTML;
+    },
+    getCityStationApi(city) {
+      getApi.getCityStation(city).then((res) => (this.stationsList = res.data));
+    },
+    getCyclingRoute(city) {
+      getApi
+        .getCyclingRoute(city)
+        .then((res) => (this.stationsList = res.data));
+    },
+    submitSearch(chosedCityLink, chosedSubOption) {
+      this.$emit("submitSearch", { chosedCityLink, chosedSubOption });
     },
     zoomSearch() {
       this.ifZoom = true;
@@ -130,13 +138,10 @@ export default {
   },
   watch: {
     chosedCity() {
-      let city = this.getchosedCityLink();
-      this.chosedCityLink = city;
-
       if (this.$route.path === "/rent") {
-        this.getCityStationApi(city);
-      } else {
-        this.getCyclingRoute(city);
+        this.getCityStationApi(this.chosedCityLink);
+      } else if (this.$route.path === "/routeMap") {
+        this.getCyclingRoute(this.chosedCityLink);
       }
     },
   },
@@ -145,6 +150,7 @@ export default {
 
 <style lang="scss" scoped>
 @use "~@/assets/scss/abstract/_color.scss";
+@use "~@/assets/scss/base/bootstrap.scss";
 
 .search_bar {
   background: white;

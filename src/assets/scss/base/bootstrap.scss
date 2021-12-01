@@ -6,3 +6,8 @@
     font-weight: 500;
   }
 }
+
+.dropdown-toggle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

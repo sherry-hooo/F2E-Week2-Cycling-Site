@@ -40,9 +40,6 @@ export default {
     });
   },
   getCyclingRoute(city, top, skip) {
-    // return apiClient(
-    //   `https://ptx.transportdata.tw/MOTC/v2/Cycling/Shape/${city}?$format=JSON`
-    // );
     return apiClient.get(
       `https://ptx.transportdata.tw/MOTC/v2/Cycling/Shape/${city}`,
       {
